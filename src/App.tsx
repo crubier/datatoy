@@ -1,6 +1,7 @@
 import React, { useContext, Suspense } from "react";
-import { ChakraProvider, Box } from "@chakra-ui/react";
+import { ChakraProvider, Box, Spinner } from "@chakra-ui/react";
 import { Layout, Model, TabNode } from "flexlayout-react";
+
 import viewMap from "./views";
 import { StateContext } from "./state-context";
 import "./App.css";
@@ -25,13 +26,12 @@ const json = {
           {
             type: "tab",
             name: "Upload File",
-            component: "Dropzone",
+            component: "DropzoneCsv",
           },
           {
             type: "tab",
             name: "State Json",
-            component: "Json",
-            // className: "tabContentFill",
+            component: "JsonState",
           },
         ],
       },
@@ -50,6 +50,16 @@ const json = {
             name: "Pivot",
             component: "PivotTable",
           },
+          {
+            type: "tab",
+            name: "Data Json",
+            component: "JsonData",
+          },
+          // {
+          //   type: "tab",
+          //   name: "Graph",
+          //   component: "GraphVis",
+          // },
         ],
       },
     ],
@@ -77,7 +87,21 @@ const factory = (node: TabNode): React.ReactNode => {
         "*": { flexGrow: 1, height: "auto", width: "auto" },
       }}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <Box
+            css={{
+              display: "flex",
+              alignItems: "center",
+              alignContent: "center",
+              justifyItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            Loading...
+          </Box>
+        }
+      >
         <Component node={node} state={state} setState={setState}></Component>
       </Suspense>
     </Box>
@@ -90,6 +114,11 @@ function App() {
   });
   const [state, setState] = React.useState<State>(() => {
     return {
+      data: [
+        { provider: "toto", provided: "titi", providedVersion: 1 },
+        { provider: "toto", provided: "tutu", providedVersion: 2 },
+        { provider: "tata", provided: "titi", providedVersion: 1 },
+      ],
       pivotTableState: {
         cols: ["provided"],
         rows: ["provider"],
@@ -106,19 +135,73 @@ function App() {
         unusedOrientationCutoff: 85,
         menuLimit: 500,
       },
+      tableState: {
+        sortBy: [
+          {
+            id: "provider",
+            desc: true,
+          },
+        ],
+        groupBy: [
+          "requester",
+          "provided",
+          "requestedVersion",
+          "providedVersion",
+        ],
+      },
+
       columns: [
         {
-          Header: "Name",
-          columns: [
-            {
-              Header: "Provider",
-              accessor: "provider",
-            },
-            {
-              Header: "Provided",
-              accessor: "provided",
-            },
-          ],
+          Header: "Provider",
+          accessor: "provider",
+          filter: "fuzzyText",
+          aggregate: "uniqueCount",
+          Aggregated: ({ value }: { value: number }) =>
+            `${value} Unique Values`,
+        },
+        {
+          Header: "ProviderVersion",
+          accessor: "providerVersion",
+          aggregate: "uniqueCount",
+          Aggregated: ({ value }: { value: number }) =>
+            `${value} Unique Values`,
+        },
+        {
+          Header: "Provided",
+          accessor: "provided",
+          filter: "fuzzyText",
+          aggregate: "uniqueCount",
+          Aggregated: ({ value }: { value: number }) =>
+            `${value} Unique Values`,
+        },
+        {
+          Header: "ProvidedVersion",
+          accessor: "providedVersion",
+          aggregate: "uniqueCount",
+          Aggregated: ({ value }: { value: number }) =>
+            `${value} Unique Values`,
+        },
+        {
+          Header: "RequestedVersion",
+          accessor: "requestedVersion",
+          aggregate: "uniqueCount",
+          Aggregated: ({ value }: { value: number }) =>
+            `${value} Unique Values`,
+        },
+        {
+          Header: "Requester",
+          accessor: "requester",
+          filter: "fuzzyText",
+          aggregate: "uniqueCount",
+          Aggregated: ({ value }: { value: number }) =>
+            `${value} Unique Values`,
+        },
+        {
+          Header: "RequesterVersion",
+          accessor: "requesterVersion",
+          aggregate: "uniqueCount",
+          Aggregated: ({ value }: { value: number }) =>
+            `${value} Unique Values`,
         },
       ],
     };

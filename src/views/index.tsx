@@ -3,8 +3,11 @@ import React from "react";
 export default {
   TestComponent: React.lazy(() => import("./test-component")),
   Fallback: React.lazy(() => import("./fallback")),
-  Dropzone: React.lazy(() => import("./dropzone")),
+  DropzoneCsv: React.lazy(() => import("./dropzone-csv")),
+  DropzoneXlsx: React.lazy(() => import("./dropzone-xlsx")),
   PivotTable: React.lazy(() => import("./pivot-table")),
-  Json: React.lazy(() => import("./json")),
+  JsonData: React.lazy(() => import("./json-data")),
+  JsonState: React.lazy(() => import("./json-state")),
   Table: React.lazy(() => import("./table")),
+  // GraphVis: React.lazy(() => import("./graph-vis")),
 };

@@ -1,0 +1,1 @@
+import{r as e}from"./vendor.59b19d5c.js";import{T as a}from"./textarea.c91118c0.js";import"./index.a9381d9f.js";import"./index.6da70642.js";export default({state:{data:t},node:r})=>e.createElement(a,{className:r.getClassName(),value:JSON.stringify(t,null,2),onChange:()=>{},height:"auto"});
