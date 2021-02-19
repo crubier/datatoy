@@ -5,6 +5,7 @@ import viewMap from "./views";
 import { StateContext } from "./state-context";
 import "./App.css";
 import "flexlayout-react/style/light.css";
+import { State } from "./types";
 
 const json = {
   global: {
@@ -85,7 +86,7 @@ function App() {
   const [model, setModel] = React.useState(() => {
     return Model.fromJson(json);
   });
-  const [state, setState] = React.useState(() => {
+  const [state, setState] = React.useState<State>(() => {
     return {
       pivotTableState: {
         cols: ["provided"],

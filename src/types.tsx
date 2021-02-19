@@ -1,8 +1,9 @@
 import { TabNode } from "flexlayout-react";
 
 export type State = {
+  columns?: Array<{}>;
   pivotTableState?: {};
-  data?: [];
+  data?: Array<{}>;
 };
 
 export type StateContextType = {

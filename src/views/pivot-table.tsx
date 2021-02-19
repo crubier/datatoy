@@ -8,7 +8,9 @@ import { Helmet } from "react-helmet";
 import { State, ViewProps } from "../types";
 
 // create Plotly React component via dependency injection
-const Plot = createPlotlyComponent(window.Plotly);
+const Plot = createPlotlyComponent(
+  (window as Window & typeof globalThis & { Plotly: any }).Plotly
+);
 
 // create Plotly renderers via dependency injection
 const PlotlyRenderers = createPlotlyRenderers(Plot);
@@ -19,12 +21,12 @@ export const PivotTable = ({ state, setState }: ViewProps) => {
       <Helmet>
         <script
           src="https://cdn.plot.ly/plotly-latest.min.js"
-          charset="utf-8"
+          charSet="utf-8"
         ></script>
       </Helmet>
       <PivotTableUI
         data={state?.data ?? []}
-        onChange={({ data, ...s }: {}) =>
+        onChange={({ data, ...s }: { data: any[] }) =>
           setState(
             (previousState: State): State => ({
               ...previousState,

@@ -1,5 +1,5 @@
 import React from "react";
-import { useTable } from "react-table";
+import { Column, useTable } from "react-table";
 import { ViewProps } from "../types";
 const RealTable = ({ state }: ViewProps) => {
   const {
@@ -9,8 +9,8 @@ const RealTable = ({ state }: ViewProps) => {
     rows,
     prepareRow,
   } = useTable({
-    columns: state.columns,
-    data: state.data,
+    columns: state.columns as Column<{}>[],
+    data: state.data as {}[],
   });
 
   // Render the UI for your table

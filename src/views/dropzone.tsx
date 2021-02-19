@@ -8,7 +8,7 @@ export const Dropzone = ({ setState }: ViewProps) => {
     console.log(acceptedFiles);
     var reader = new FileReader();
     reader.onload = function (e) {
-      var data = new Uint8Array(e.target.result);
+      var data = new Uint8Array((e.target?.result as ArrayBufferLike) || []);
       var workbook = XLSX.read(data, { type: "array" });
       // XLSX.writeFile(workbook, "out.xls");
 
