@@ -1,0 +1,9 @@
+.tabContentFill {
+  width: auto;
+  height: auto;
+  flex-grow: 1;
+}
+
+/* .flexlayout__tab {
+  display: flex !important;
+} */
