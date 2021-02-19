@@ -15,7 +15,7 @@ const Plot = createPlotlyComponent(
 // create Plotly renderers via dependency injection
 const PlotlyRenderers = createPlotlyRenderers(Plot);
 const renderers = Object.assign({}, TableRenderers, PlotlyRenderers);
-export const PivotTable = ({ state, setState }: ViewProps) => {
+const PivotTable = ({ state, setState }: ViewProps) => {
   return (
     <>
       <Helmet>
@@ -40,3 +40,5 @@ export const PivotTable = ({ state, setState }: ViewProps) => {
     </>
   );
 };
+
+export default PivotTable;

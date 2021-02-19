@@ -1,7 +1,7 @@
 import { Textarea } from "@chakra-ui/react";
 import React from "react";
 import { ViewProps } from "../types";
-export const Json = ({ state: { data, ...rest }, node }: ViewProps) => {
+const Json = ({ state: { data, ...rest }, node }: ViewProps) => {
   const handleInputChange = () => {
     return;
   };
@@ -14,3 +14,4 @@ export const Json = ({ state: { data, ...rest }, node }: ViewProps) => {
     ></Textarea>
   );
 };
+export default Json;

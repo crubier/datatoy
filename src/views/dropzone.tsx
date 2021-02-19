@@ -1,15 +1,17 @@
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import XLSX from "xlsx";
+
 import { ViewProps } from "../types";
 
-export const Dropzone = ({ setState }: ViewProps) => {
+const Dropzone = ({ setState }: ViewProps) => {
   const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles);
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      var data = new Uint8Array((e.target?.result as ArrayBufferLike) || []);
-      var workbook = XLSX.read(data, { type: "array" });
+    const XLSXPromise = import("xlsx");
+
+    const reader = new FileReader();
+    reader.onload = async function (e) {
+      const data = new Uint8Array((e.target?.result as ArrayBufferLike) || []);
+      const XLSX = await XLSXPromise;
+      const workbook = XLSX.read(data, { type: "array" });
       // XLSX.writeFile(workbook, "out.xls");
 
       setState((previousState) => ({
@@ -34,3 +36,5 @@ export const Dropzone = ({ setState }: ViewProps) => {
     </div>
   );
 };
+
+export default Dropzone;

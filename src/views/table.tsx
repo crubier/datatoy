@@ -41,10 +41,12 @@ const RealTable = ({ state }: ViewProps) => {
   );
 };
 
-export const Table = (a: ViewProps) => {
+const Table = (a: ViewProps) => {
   if (a.state.data) {
     return <RealTable {...a} />;
   } else {
     return <div>No Data</div>;
   }
 };
+
+export default Table;

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, Suspense } from "react";
 import { ChakraProvider, Box } from "@chakra-ui/react";
 import { Layout, Model, TabNode } from "flexlayout-react";
 import viewMap from "./views";
@@ -77,7 +77,9 @@ const factory = (node: TabNode): React.ReactNode => {
         "*": { flexGrow: 1, height: "auto", width: "auto" },
       }}
     >
-      <Component node={node} state={state} setState={setState}></Component>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Component node={node} state={state} setState={setState}></Component>
+      </Suspense>
     </Box>
   );
 };
